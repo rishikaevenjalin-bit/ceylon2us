@@ -1,3 +1,5 @@
+from collections import Counter
+
 from pathlib import Path
 
 from pypdf import PdfReader
@@ -69,11 +71,14 @@ def main():
                 "checked": get_checked_date(page["source"]),
             })
 
-    print(f"Created {len(all_chunks)} chunks")
-    if all_chunks:
-        print("\nExample chunk:")
-        print(all_chunks[0])
+    print(f"Created {len(all_chunks)} chunks\n")
+
+    counts = Counter(chunk["source"] for chunk in all_chunks)
+    print("Chunks per source:")
+    for source, count in counts.items():
+        date = get_checked_date(source)
+        print(f"  {source}: {count} chunks (checked {date})")
 
 
 if __name__ == "__main__":
-    main()
+    main() 
