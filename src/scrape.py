@@ -9,7 +9,7 @@ DATA_DIR = Path("data")
 
 # name_topic -> official URL
 SOURCES = {
-    "ssa_ssn": "https://www.ssa.gov/number-card",
+    "ssa_immigrants": "https://www.ssa.gov/people/immigrants",
     "uscis_greencard": "https://www.uscis.gov/green-card",
     "state_immigrantvisa": "https://travel.state.gov/content/travel/en/us-visas/immigrate/the-immigrant-visa-process.html",
 }
