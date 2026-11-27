@@ -56,10 +56,9 @@ def chunk_text(text, chunk_size=CHUNK_SIZE, overlap=OVERLAP):
     return chunks
 
 
-def main():
-    pages = load_pdfs(DATA_DIR) + load_txts(DATA_DIR)
-    print(f"Loaded {len(pages)} pages")
-
+def build_chunks(folder=DATA_DIR):
+    """Load all documents and return a list of chunks with metadata."""
+    pages = load_pdfs(folder) + load_txts(folder)
     all_chunks = []
     for page in pages:
         for i, chunk in enumerate(chunk_text(page["text"])):
@@ -70,7 +69,11 @@ def main():
                 "page": page["page"],
                 "checked": get_checked_date(page["source"]),
             })
+    return all_chunks
 
+
+def main():
+    all_chunks = build_chunks()
     print(f"Created {len(all_chunks)} chunks\n")
 
     counts = Counter(chunk["source"] for chunk in all_chunks)
@@ -78,6 +81,7 @@ def main():
     for source, count in counts.items():
         date = get_checked_date(source)
         print(f"  {source}: {count} chunks (checked {date})")
+        
 
 
 if __name__ == "__main__":
